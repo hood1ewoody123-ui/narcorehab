@@ -1,0 +1,30 @@
+---
+description: ЦМПП «Здравница» — контекст проекта, стек, структура, принципы разработки
+alwaysApply: true
+---
+
+# narcorehab.com — Core
+
+Медицинский landing ЦМПП «Здравница» (психиатрия, наркология, восстановление). Чувствительная ниша: UX и тексты **снимают страх, не давят**.
+
+## Стек
+
+Next.js 14 App Router · TypeScript · Tailwind + CSS vars · Framer Motion · RHF + Zod · Radix UI · Lucide + Phosphor · next/font (Cormorant Garamond + Manrope) · Vercel
+
+## Структура
+
+- `src/components/ui/` — Button, Card, Input
+- `src/components/sections/` — Hero, Pains, Safety, Programs, Timeline, Family, Doctors, WhyUs, Testimonials, Faq, FinalCta, StickyBar
+- `src/lib/utils.ts` → `cn()` · `src/lib/schemas.ts` → Zod
+- Импорт: `@/*` · UI на русском · `lang="ru"`
+
+## Код
+
+- Functional components, минимальный diff, не трогать несвязанный код
+- `"use client"` только для hooks/motion/интерактива
+- Порядок работы — по `roadmap-narcorehab.md`
+- Ответы пользователю — на русском
+
+## Готовность
+
+`build` и `lint` чистые · Lighthouse Desktop 90+/100 SEO · форма → n8n · consent обязателен

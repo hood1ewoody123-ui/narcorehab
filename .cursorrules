@@ -1,0 +1,200 @@
+# ЦМПП «Здравница» — narcorehab.com
+# Главная страница · Next.js landing
+
+Этот файл — закон проекта. Все решения по коду, дизайну и текстам согласуются с ним.
+
+---
+
+## Проект
+
+- **Сайт:** narcorehab.com — главная страница медицинского центра
+- **Организация:** ЦМПП «Здравница» — психиатрия, наркология, восстановление
+- **Ниша:** чувствительная медицинская тематика (зависимости, кризисы, помощь близким)
+- **Язык интерфейса:** русский (`lang="ru"`)
+- **Деплой:** Vercel
+
+### Главный принцип UX и копирайта
+
+Дизайн и текст **снимают страх, а не давят**. Тон: спокойный, деликатный, профессиональный, без давления и запугивания.
+
+**Запрещено на странице:**
+- Красный цвет (ни в UI, ни в акцентах)
+- Восклицательные знаки в текстах
+- Агрессивные CTA («СРОЧНО!», «Успей!», «Последний шанс!»)
+- Кликбейт, стигматизирующие формулировки, медицинские обещания без осторожности
+
+**Предпочитать:**
+- «Анонимно», «деликатно», «первый шаг», «мы рядом»
+- Спокойные формулировки без катастрофизации
+- Ясность маршрута помощи вместо страха
+
+---
+
+## Стек
+
+```
+Next.js 14 (App Router) · TypeScript · Tailwind CSS + CSS Variables
+Framer Motion · Lucide React + Phosphor Icons
+React Hook Form + Zod · Radix UI
+next/font: Cormorant Garamond + Manrope
+ESLint + Prettier · Vercel
+```
+
+Не добавлять лишние зависимости без необходимости. Следовать стеку из роадмапа.
+
+---
+
+## Структура проекта
+
+```
+src/
+├── app/           layout.tsx, page.tsx, globals.css, API routes
+├── components/
+│   ├── ui/        Button, Card, Input — переиспользуемые примитивы
+│   └── sections/  Hero, Pains, Safety, Programs, Timeline, Family,
+│                  Doctors, WhyUs, Testimonials, Faq, FinalCta, StickyBar
+├── lib/           utils.ts (cn), schemas.ts (Zod)
+├── hooks/         useScrollProgress.ts
+└── types/         index.ts
+public/images/
+```
+
+- Секции главной — только в `components/sections/`
+- UI-примитивы — только в `components/ui/`
+- Бизнес-логика форм — `lib/schemas.ts`
+- Утилиты классов — `lib/utils.ts` → `cn()`
+
+---
+
+## Дизайн-система: Dark Premium
+
+### Палитра (единственный источник — CSS variables + Tailwind tokens)
+
+| Token     | Hex       | Назначение                          |
+|-----------|-----------|-------------------------------------|
+| teal      | `#1D6666` | Акцент, focus, CTA                  |
+| black     | `#17191A` | Тёмные секции (Hero и др.)          |
+| graphite  | `#2B2B2B` | Основной текст                       |
+| cream     | `#F7F7F5` | Фон страницы (`--white`)            |
+| gray      | `#7E8788` | Вторичный текст                      |
+| silver    | `#AEB5B7` | Бордеры, декоративные линии          |
+
+Производные: `--teal-20`, `--teal-40`, `--silver-20`, `--line`, `--shadow-sm/md/lg`.
+
+### Типографика
+
+- **Заголовки (h1–h3):** `font-display` → Cormorant Garamond, weight 400, line-height ~1.1
+- **Текст:** `font-body` → Manrope
+- **Размеры display:** `display-lg`, `display-md`, `display-sm` (clamp через Tailwind)
+
+Не подключать посторонние шрифты. Не использовать жирные заголовки без причины.
+
+### Стилизация
+
+- Tailwind + CSS variables из `globals.css`
+- Цвета — через tokens (`text-teal`, `bg-cream`, `var(--teal)`), не hardcode hex в компонентах
+- Тени — только `--shadow-sm/md/lg`
+- Easing — `cubic-bezier(0.16, 1, 0.3, 1)` / `ease-out-expo`
+- `:focus-visible` — outline 2px teal; убрать outline для mouse focus
+
+---
+
+## Компоненты и код
+
+### Общие правила
+
+- Functional components, TypeScript strict
+- Именование: PascalCase для компонентов, camelCase для функций/хуков
+- Минимальный diff — не рефакторить несвязанный код
+- Следовать существующим паттернам файла, в который пишешь
+- Импорт-алиас: `@/*`
+
+### UI-примитивы (`components/ui/`)
+
+- Radix UI для доступности (accordion, dialog, toast, label)
+- `cn()` из `@/lib/utils` для классов
+- `class-variance-authority` для вариантов Button
+
+### Секции (`components/sections/`)
+
+- Одна секция = один файл, default export
+- Секции собираются в `app/page.tsx` в порядке роадмапа
+- Анимации через Framer Motion — единые variants (см. ниже)
+- `"use client"` только где нужны hooks, motion или интерактив
+
+---
+
+## Анимации (Framer Motion)
+
+Использовать стандартные variants везде:
+
+```typescript
+// fadeUpVariant — появление снизу
+// staggerContainer — каскад детей (stagger 0.1, delay 0.2)
+// cardHover — y: -4, shadow-md на hover
+```
+
+- Duration: 0.4–0.6s, ease `[0.16, 1, 0.3, 1]`
+- Цель: 60fps, без тяжёлых layout thrashing
+- Уважать `prefers-reduced-motion`
+
+---
+
+## Формы, API, приватность
+
+### Форма обратной связи
+
+- React Hook Form + Zod (`lib/schemas.ts`)
+- Обязательные поля: name, phone, who (`self` | `relative`), consent
+- `consent: z.literal(true)` — без галочки отправка невозможна
+- Телефон: `/^\+?[78]\d{9,10}$/`
+- Тексты ошибок — на русском, спокойные, без давления
+
+### API route → n8n
+
+- Env: `N8N_WEBHOOK_URL`
+- Rate limit: max 10 req/min per IP
+- **Не логировать** персональные данные
+- HTTPS на Vercel
+
+---
+
+## SEO и metadata
+
+- Title/description из `layout.tsx`
+- OpenGraph: locale `ru_RU`
+- Schema.org на финальном этапе
+- Lighthouse: Desktop Perf 90+, SEO 100; Mobile Perf 85+
+
+---
+
+## Порядок разработки
+
+Следовать этапам из `roadmap-narcorehab.md`:
+
+1. Основа — globals, tailwind, layout, utils, schemas, Button, Input
+2. Hero + StickyBar + FloatingCta
+3. Pains, Safety, Programs, Timeline
+4. Family, Doctors, WhyUs, Testimonials, Faq
+5. FinalCta, форма, API, SEO, Lighthouse
+
+Не перескакивать этапы без явной просьбы.
+
+---
+
+## Критерии готовности
+
+- `npm run build` — без ошибок
+- `npm run lint` — без предупреждений
+- Форма отправляется в n8n
+- Sticky bar на мобиле работает
+- Нет красного цвета и восклицательных знаков
+- Consent checkbox обязателен
+
+---
+
+## Ответы агента
+
+- Объяснения пользователю — **на русском**
+- UI-тексты сайта — **на русском**
+- Комментарии в коде — только для неочевидной логики, на русском или английском по контексту файла

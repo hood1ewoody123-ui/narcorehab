@@ -1,0 +1,32 @@
+---
+description: Формы, валидация Zod, API n8n, приватность персональных данных
+globs: "{src/lib/schemas.ts,src/app/api/**,src/components/**/FinalCta*,src/components/ui/Input*,src/components/ui/Button*}"
+alwaysApply: false
+---
+
+# Forms & API
+
+## Валидация (Zod в `lib/schemas.ts`)
+
+```typescript
+contactSchema = z.object({
+  name: z.string().min(2).max(50),
+  phone: z.string().regex(/^\+?[78]\d{9,10}$/),
+  who: z.enum(["self", "relative"]),
+  message: z.string().max(300).optional(),
+  consent: z.literal(true), // обязательно
+});
+```
+
+## Форма
+
+- React Hook Form + `@hookform/resolvers/zod`
+- Ошибки на русском, спокойный тон
+- Без consent — кнопка submit недоступна
+
+## API → n8n
+
+- Env: `N8N_WEBHOOK_URL`
+- Rate limit: 10 req/min per IP
+- **Не логировать** имя, телефон и другие ПД
+- Radix UI для label, dialog, toast (a11y)

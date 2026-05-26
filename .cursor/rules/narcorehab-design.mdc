@@ -1,0 +1,43 @@
+---
+description: Dark Premium дизайн-система — палитра, типографика, Tailwind tokens
+globs: "**/*.{tsx,css,ts}"
+alwaysApply: false
+---
+
+# Design System — Dark Premium
+
+## Палитра (только tokens, не hardcode hex)
+
+| Token    | Hex       |
+|----------|-----------|
+| teal     | `#1D6666` |
+| black    | `#17191A` |
+| graphite | `#2B2B2B` |
+| cream    | `#F7F7F5` |
+| gray     | `#7E8788` |
+| silver   | `#AEB5B7` |
+
+CSS vars в `globals.css`: `--teal-20/40`, `--silver-20`, `--line`, `--shadow-sm/md/lg`.
+
+## Типографика
+
+- Заголовки h1–h3: `font-display` (Cormorant Garamond), weight 400
+- Текст: `font-body` (Manrope)
+- Display sizes: `display-lg`, `display-md`, `display-sm`
+
+## Правила UI
+
+- **Запрещён красный цвет** — нигде на странице
+- Easing: `[0.16, 1, 0.3, 1]` / `ease-out-expo`
+- Focus: `:focus-visible` → 2px teal outline
+- Тени только через `--shadow-*`
+
+## Анимации (Framer Motion)
+
+```typescript
+fadeUpVariant    // opacity 0→1, y 20→0, 0.6s
+staggerContainer // staggerChildren 0.1, delayChildren 0.2
+cardHover        // y -4, shadow-md
+```
+
+60fps · уважать `prefers-reduced-motion`.

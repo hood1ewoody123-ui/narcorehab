@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+:root {
+  --teal: #1d6666;
+  --teal-20: rgba(29, 102, 102, 0.12);
+  --teal-40: rgba(29, 102, 102, 0.25);
+  --black: #17191a;
+  --graphite: #2b2b2b;
+  --white: #f7f7f5;
+  --gray: #7e8788;
+  --silver: #aeb5b7;
+  --silver-20: rgba(174, 181, 183, 0.2);
+  --line: rgba(174, 181, 183, 0.35);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-sm: 0 1px 3px rgba(23, 25, 26, 0.06), 0 1px 2px rgba(23, 25, 26, 0.04);
+  --shadow-md: 0 4px 16px rgba(23, 25, 26, 0.08), 0 2px 6px rgba(23, 25, 26, 0.04);
+  --shadow-lg: 0 16px 48px rgba(23, 25, 26, 0.12), 0 4px 12px rgba(23, 25, 26, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--white);
+  color: var(--graphite);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}

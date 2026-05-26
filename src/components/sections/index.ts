@@ -1,0 +1,12 @@
+export { default as Hero } from "./Hero";
+export { default as Pains } from "./Pains";
+export { default as Safety } from "./Safety";
+export { default as Programs } from "./Programs";
+export { default as Timeline } from "./Timeline";
+export { default as Family } from "./Family";
+export { default as Doctors } from "./Doctors";
+export { default as WhyUs } from "./WhyUs";
+export { default as Testimonials } from "./Testimonials";
+export { default as Faq } from "./Faq";
+export { default as FinalCta } from "./FinalCta";
+export { default as StickyBar } from "./StickyBar";

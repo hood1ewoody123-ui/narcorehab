@@ -4,19 +4,29 @@ import type { Doctor } from "./constants";
 
 type DoctorCircleProps = {
   doctor: Doctor;
+  layout?: "absolute" | "grid";
 };
 
-export function DoctorCircle({ doctor }: DoctorCircleProps) {
-  const { size } = doctor.slot;
+export function DoctorCircle({ doctor, layout = "absolute" }: DoctorCircleProps) {
+  const size = layout === "grid" ? Math.min(doctor.slot.size, 148) : doctor.slot.size;
+  const isGrid = layout === "grid";
 
   return (
     <div
-      className="group absolute flex flex-col items-center"
-      style={{
-        top: doctor.slot.top,
-        left: doctor.slot.left,
-        width: size,
-      }}
+      className={
+        isGrid
+          ? "group mx-auto flex w-full min-w-0 max-w-[168px] flex-col items-center"
+          : "group absolute flex flex-col items-center"
+      }
+      style={
+        isGrid
+          ? undefined
+          : {
+              top: doctor.slot.top,
+              left: doctor.slot.left,
+              width: size,
+            }
+      }
     >
       <button
         type="button"
@@ -43,12 +53,17 @@ export function DoctorCircle({ doctor }: DoctorCircleProps) {
         <span
           className={cn(
             "absolute inset-0 flex items-center justify-center p-4 text-center",
-            "bg-graphite/80 opacity-0 transition-opacity duration-300 ease-out-expo",
+            "bg-teal/85 opacity-0 transition-opacity duration-300 ease-out-expo",
             "group-hover:opacity-100 group-focus-visible:opacity-100",
           )}
           aria-hidden
         >
-          <span className="font-body text-sm leading-snug text-cream md:text-[15px]">
+          <span
+            className={cn(
+              "font-body leading-snug text-cream",
+              isGrid ? "px-2 text-[11px]" : "text-sm md:text-[15px]",
+            )}
+          >
             {doctor.name}
           </span>
         </span>
@@ -56,7 +71,8 @@ export function DoctorCircle({ doctor }: DoctorCircleProps) {
 
       <p
         className={cn(
-          "pointer-events-none mt-3 w-max max-w-[240px] text-center font-body text-xs leading-relaxed text-gray",
+          "pointer-events-none mt-3 text-center font-body text-xs leading-relaxed break-words text-gray",
+          isGrid ? "w-full px-0.5" : "w-max max-w-[240px]",
           "opacity-0 transition-opacity duration-300 ease-out-expo",
           "group-hover:opacity-100 group-focus-within:opacity-100",
         )}

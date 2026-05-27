@@ -18,7 +18,7 @@ import {
 } from "./contact-form/constants";
 
 const inputClassName =
-  "w-full rounded-md border border-dashed border-silver/70 bg-cream px-4 py-3 font-body text-sm text-graphite outline-none transition-colors focus-visible:border-teal";
+  "w-full rounded-md border border-[var(--line)] bg-cream px-4 py-3 font-body text-sm text-graphite outline-none transition-colors focus-visible:border-teal";
 
 export default function ContactForm() {
   const [submitState, setSubmitState] = useState<"idle" | "loading" | "success" | "error">(
@@ -159,7 +159,7 @@ export default function ContactForm() {
             <Button
               type="submit"
               disabled={!isValid || submitState === "loading"}
-              className="h-12 w-full rounded-xl bg-graphite text-base text-cream hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-12 w-full rounded-xl bg-teal text-base text-cream hover:bg-teal/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitState === "loading" ? "Отправляем..." : "Отправить"}
             </Button>
@@ -176,7 +176,7 @@ export default function ContactForm() {
             ) : null}
           </form>
 
-          <p className="mt-10 font-display text-sm italic text-graphite md:text-base">
+          <p className="mt-10 font-body text-sm text-graphite md:text-base">
             <Link href={CONTACT_FORM_PHONE_HREF} className="hover:text-teal">
               {CONTACT_FORM_PHONE}
             </Link>

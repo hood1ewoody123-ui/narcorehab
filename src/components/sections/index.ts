@@ -20,3 +20,4 @@ export { default as PartnersCommunity } from "./PartnersCommunity";
 export { default as ContactRow } from "./ContactRow";
 export { default as SiteFooter } from "./SiteFooter";
 export { default as StickyBar } from "./StickyBar";
+export { default as FloatingCta } from "./FloatingCta";

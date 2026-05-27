@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { btnPrimary, chipActive, chipInactive, surfaceCard } from "@/lib/theme";
 
 type QuizStep = {
   id: string;
@@ -91,7 +92,7 @@ export default function FinalCta() {
         </header>
 
         <div className="mt-10 grid gap-5 md:mt-12 md:grid-cols-[1.65fr_1fr] md:gap-6">
-          <div className="rounded-2xl border border-[var(--line)] bg-cream p-5 md:rounded-3xl md:p-7">
+          <div className={cn(surfaceCard, "p-5 md:p-7")}>
             <p className="font-body text-base font-medium text-graphite md:text-lg">{currentStep.question}</p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -103,10 +104,8 @@ export default function FinalCta() {
                     type="button"
                     onClick={() => setAnswers((prev) => ({ ...prev, [currentStep.id]: option }))}
                     className={cn(
-                      "rounded-xl border px-4 py-3 text-left font-body text-sm transition-colors md:text-base",
-                      isActive
-                        ? "border-graphite bg-graphite text-cream"
-                        : "border-[var(--line)] bg-cream text-graphite hover:border-silver",
+                      "rounded-xl border px-4 py-3 text-left font-body text-sm md:text-base",
+                      isActive ? chipActive : chipInactive,
                     )}
                   >
                     {option}
@@ -122,7 +121,7 @@ export default function FinalCta() {
                 </p>
                 <div className="mt-2 h-1.5 w-full rounded-full bg-silver/30">
                   <div
-                    className="h-1.5 rounded-full bg-graphite transition-all duration-300"
+                    className="h-1.5 rounded-full bg-teal transition-all duration-300"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
@@ -135,7 +134,7 @@ export default function FinalCta() {
                 className={cn(
                   "rounded-xl px-5 py-3 font-body text-sm transition-colors md:text-base",
                   selected && !isLastStep
-                    ? "bg-graphite text-cream hover:bg-black"
+                    ? btnPrimary
                     : "cursor-not-allowed bg-silver/40 text-graphite/60",
                 )}
               >
@@ -144,14 +143,14 @@ export default function FinalCta() {
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-[var(--line)] bg-cream p-5 md:rounded-3xl md:p-6">
+          <aside className={cn(surfaceCard, "p-5 md:p-6")}>
             <div className="flex items-center gap-3">
               <Image
-                src="/images/doctors/terekhov-vasily.png"
+                src="/images/quiz/specialist.jpg"
                 alt=""
                 width={56}
                 height={56}
-                className="h-14 w-14 rounded-full object-cover object-top"
+                className="h-14 w-14 rounded-full object-cover object-center"
               />
               <div>
                 <p className="font-body text-sm font-medium text-graphite md:text-base">Андрей Владимирович</p>
@@ -159,7 +158,7 @@ export default function FinalCta() {
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl bg-silver/20 p-4">
+            <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--teal-20)] p-4">
               <p className="font-body text-sm leading-relaxed text-graphite">
                 Окончательную программу назначают после очного осмотра.
               </p>

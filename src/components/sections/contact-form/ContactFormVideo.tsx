@@ -38,7 +38,7 @@ export function ContactFormVideo({ className }: ContactFormVideoProps) {
     <div
       className={cn(
         "relative w-full overflow-hidden bg-cream",
-        "rounded-b-[clamp(140px,30vw,320px)] rounded-t-md md:rounded-t-lg",
+        "rounded-t-md max-md:rounded-b-[min(68vw,300px)] md:rounded-t-lg md:rounded-b-[clamp(140px,30vw,320px)]",
         className,
       )}
     >

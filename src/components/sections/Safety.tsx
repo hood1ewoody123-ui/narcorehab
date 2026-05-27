@@ -7,6 +7,7 @@ import {
   type Icon,
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
+import { darkCard, darkMuted, darkSubtitle, darkTitle } from "@/lib/theme";
 import { motion, useReducedMotion } from "framer-motion";
 import { SAFETY_FEATURES, SAFETY_SUBTITLE, SAFETY_TITLE } from "./safety/constants";
 
@@ -29,17 +30,17 @@ export function Safety({
 
   const card = (
     <motion.div
-      className="rounded-2xl bg-graphite px-6 py-10 md:rounded-3xl md:px-10 md:py-12 lg:px-14 lg:py-14"
+      className={cn(darkCard, "px-6 py-10 md:px-10 md:py-12 lg:px-14 lg:py-14")}
       initial={reducedMotion || !animateInView ? false : { opacity: 0, y: 20 }}
       whileInView={animateInView ? { opacity: 1, y: 0 } : undefined}
       viewport={animateInView ? { once: true, margin: "-60px" } : undefined}
       transition={{ duration: 0.55, ease: EASE }}
     >
       <header className="max-w-3xl">
-        <h2 className="font-display text-display-sm text-cream md:text-display-md">
+        <h2 className={cn("font-display text-display-sm md:text-display-md", darkTitle)}>
           {SAFETY_TITLE}
         </h2>
-        <p className="mt-4 font-body text-sm leading-relaxed text-silver md:text-base">
+        <p className={cn("mt-4 font-body text-sm leading-relaxed md:text-base", darkSubtitle)}>
           {SAFETY_SUBTITLE}
         </p>
       </header>
@@ -51,7 +52,7 @@ export function Safety({
           return (
             <motion.li
               key={feature.title}
-              className="flex flex-col items-start"
+              className="group flex flex-col items-start rounded-xl p-2 transition-colors duration-200 hover:bg-white/[0.04]"
               initial={reducedMotion || !animateInView ? false : { opacity: 0, y: 12 }}
               whileInView={animateInView ? { opacity: 1, y: 0 } : undefined}
               viewport={animateInView ? { once: true, margin: "-40px" } : undefined}
@@ -62,16 +63,20 @@ export function Safety({
               }}
             >
               <span
-                className="mb-5 flex size-12 items-center justify-center rounded-full border border-silver/35"
+                className="mb-5 flex size-12 items-center justify-center rounded-full border border-teal/35 bg-teal/15 transition-colors duration-200 group-hover:border-teal/55 group-hover:bg-teal/25"
                 aria-hidden
               >
-                <IconComponent size={24} weight="light" className="text-cream" />
+                <IconComponent
+                  size={24}
+                  weight="light"
+                  className="text-teal transition-colors duration-200 group-hover:text-cream"
+                />
               </span>
 
-              <h3 className="font-body text-base font-medium text-cream md:text-lg">
+              <h3 className={cn("font-body text-base font-medium md:text-lg", darkTitle)}>
                 {feature.title}
               </h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-silver">
+              <p className={cn("mt-2 font-body text-sm leading-relaxed", darkMuted)}>
                 {feature.description}
               </p>
             </motion.li>

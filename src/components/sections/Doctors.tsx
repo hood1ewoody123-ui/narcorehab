@@ -52,7 +52,7 @@ export default function Doctors() {
                   className={cn(
                     "rounded-full px-4 py-2 font-body text-xs transition-colors duration-300 md:px-5 md:text-sm",
                     isActive
-                      ? "bg-graphite text-cream"
+                      ? "bg-teal text-cream"
                       : "text-gray hover:text-graphite",
                   )}
                   onClick={() => setActiveGroup(tab.id)}
@@ -64,22 +64,42 @@ export default function Doctors() {
           </div>
         </div>
 
-        <div className="mt-12 overflow-x-auto md:mt-16 md:overflow-visible">
+        {/* Mobile: сетка вниз, без горизонтального скролла */}
+        <div
+          id="doctors-cluster"
+          role="tabpanel"
+          aria-labelledby={`doctors-tab-${activeGroup}`}
+          className="mt-10 md:hidden"
+        >
+          <div className="grid grid-cols-2 gap-x-4 gap-y-10 [&>*]:min-w-0">
+            {visibleDoctors.map((doctor) => (
+              <DoctorCircle key={doctor.id} doctor={doctor} layout="grid" />
+            ))}
+          </div>
+          <div className="mt-10 flex justify-center">
+            <DoctorsSeeAllCircle
+              href={DOCTORS_SEE_ALL_HREF}
+              label={DOCTORS_SEE_ALL_LABEL}
+              variant="inline"
+            />
+          </div>
+        </div>
+
+        {/* Desktop: раскладка как на макете */}
+        <div className="mt-12 hidden md:mt-16 md:block">
           <div
-            id="doctors-cluster"
-            role="tabpanel"
-            aria-labelledby={`doctors-tab-${activeGroup}`}
-            className="relative mx-auto w-[1180px] max-w-none origin-top-left scale-[0.66] sm:scale-[0.8] md:max-w-[1180px] md:scale-100 md:origin-center"
+            className="relative mx-auto max-w-[1180px]"
             style={{ minHeight: 820 }}
           >
             {visibleDoctors.map((doctor) => (
-              <DoctorCircle key={doctor.id} doctor={doctor} />
+              <DoctorCircle key={doctor.id} doctor={doctor} layout="absolute" />
             ))}
 
             <DoctorsSeeAllCircle
               slot={DOCTORS_CTA_SLOT}
               href={DOCTORS_SEE_ALL_HREF}
               label={DOCTORS_SEE_ALL_LABEL}
+              variant="absolute"
             />
           </div>
         </div>

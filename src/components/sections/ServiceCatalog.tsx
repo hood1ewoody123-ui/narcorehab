@@ -31,7 +31,7 @@ function ServiceCatalogRow({ item }: { item: ServiceCatalogItem }) {
           </span>
         ) : null}
         <ArrowRight
-          className="text-gray transition-colors duration-200 group-hover:text-graphite"
+          className="text-gray transition-colors duration-200 group-hover:text-teal"
           size={16}
           weight="regular"
           aria-hidden

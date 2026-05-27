@@ -110,12 +110,15 @@ function OrbitVisual({
         )}
       </svg>
 
-      <div className="absolute left-1/2 top-1/2 z-10 flex h-[clamp(100px,28vw,132px)] w-[clamp(100px,28vw,132px)] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-teal/30 bg-graphite text-center shadow-[var(--shadow-md)]">
+      <div className="absolute left-1/2 top-1/2 z-10 flex h-[clamp(100px,28vw,132px)] w-[clamp(100px,28vw,132px)] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-teal/40 bg-teal text-center shadow-[var(--shadow-md)]">
         <span className="font-display text-[clamp(22px,4vw,28px)] leading-none text-cream">
           {METHODOLOGY_HUB.title}
         </span>
-        <span className="mt-1.5 font-body text-[10px] uppercase tracking-[0.14em] text-silver md:text-xs">
-          {METHODOLOGY_HUB.lines.join(" · ")}
+        <span className="mt-1 max-w-[86%] px-1.5 text-center font-body text-[7px] uppercase leading-[1.25] tracking-[0.04em] text-cream/85 sm:text-[7.5px] md:mt-1.5 md:text-[8.5px] md:leading-tight md:tracking-[0.05em]">
+          <span className="block">
+            {METHODOLOGY_HUB.lines[0]} · {METHODOLOGY_HUB.lines[1]}
+          </span>
+          <span className="block">· {METHODOLOGY_HUB.lines[2]}</span>
         </span>
       </div>
 
@@ -295,18 +298,18 @@ export default function MethodologyMap() {
         </motion.div>
 
         <motion.div
-          className="mt-10 overflow-hidden rounded-2xl border border-[var(--line)] bg-graphite md:rounded-3xl"
+          className="mt-10 overflow-hidden rounded-2xl border border-[var(--line)] bg-cream shadow-[var(--shadow-sm)] md:rounded-3xl"
           initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.12 }}
         >
           <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
-            <div className="relative border-b border-white/10 px-5 py-8 md:px-8 md:py-10 lg:border-b-0 lg:border-r">
-              <p className="font-body text-xs uppercase tracking-[0.14em] text-silver">
+            <div className="relative border-b border-[var(--line)] bg-[var(--teal-20)] px-5 py-8 md:px-8 md:py-10 lg:border-b-0 lg:border-r">
+              <p className="font-body text-xs uppercase tracking-[0.14em] text-teal">
                 Маршрут из пяти этапов
               </p>
-              <p className="mt-2 max-w-sm font-body text-sm text-silver/90">
+              <p className="mt-2 max-w-sm font-body text-sm text-gray">
                 Выберите этап на схеме — справа появится ответ на типичный вопрос и что именно
                 происходит.
               </p>
@@ -327,8 +330,8 @@ export default function MethodologyMap() {
                     className={cn(
                       "rounded-lg border px-2 py-2 font-body text-[11px] transition-colors",
                       step.id === activeStepId
-                        ? "border-teal bg-teal/20 text-cream"
-                        : "border-white/15 text-silver hover:text-cream",
+                        ? "border-teal bg-teal text-cream"
+                        : "border-[var(--line)] bg-cream text-gray hover:border-teal/40 hover:text-graphite",
                     )}
                   >
                     {step.phase}
@@ -379,7 +382,7 @@ export default function MethodologyMap() {
           </p>
           <Link
             href={METHODOLOGY_CTA.href}
-            className="inline-flex shrink-0 rounded-xl bg-teal px-5 py-3 font-body text-sm text-cream transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--teal)_88%,var(--black))]"
+            className="inline-flex shrink-0 rounded-xl bg-teal px-5 py-3 font-body text-sm text-cream transition-colors duration-200 hover:bg-teal/90"
           >
             {METHODOLOGY_CTA.label}
           </Link>

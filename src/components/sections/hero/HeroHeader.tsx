@@ -1,5 +1,6 @@
 "use client";
 
+import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { LogoAnimated } from "@/components/ui/LogoAnimated";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -120,28 +121,16 @@ export function HeroHeader({
           </div>
         </div>
 
-        <div className="mt-3 flex flex-col items-center gap-2.5 md:hidden">
-          <div className="flex items-center gap-3">
-            <a href={`tel:+${SITE_PHONE_MAIN}`} className={linkClass}>
-              {SITE_PHONE_MAIN_DISPLAY}
-            </a>
-            <Button variant="ghost" size="sm">
+        <div className="mt-3 flex items-center justify-between gap-3 md:hidden">
+          <a href={`tel:+${SITE_PHONE_MAIN}`} className={cn(linkClass, "text-sm")}>
+            {SITE_PHONE_MAIN_DISPLAY}
+          </a>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="shrink-0">
               Заказать звонок
             </Button>
+            <MobileNavMenu variant="hero" />
           </div>
-
-          <nav
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1"
-            aria-label="Навигация"
-          >
-            {[...NAV_LEFT, ...NAV_RIGHT].map((item) => (
-              <a key={item.href} href={item.href} className={cn(linkClass, "text-[11px]")}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <p className="font-body text-[10px] text-white/45">{SITE_ADDRESS}</p>
         </div>
       </div>
     </motion.header>

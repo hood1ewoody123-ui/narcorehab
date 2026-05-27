@@ -45,8 +45,8 @@ export default function TopicArticles() {
                 type="button"
                 onClick={() => setTopic(tab.id)}
                 className={cn(
-                  "rounded-full border border-dashed px-4 py-2 font-body text-sm transition-colors",
-                  active ? "border-graphite bg-graphite text-cream" : "border-[var(--line)] text-graphite hover:border-gray",
+                  "rounded-full border px-4 py-2 font-body text-sm transition-colors",
+                  active ? "border-teal bg-teal text-cream" : "border-[var(--line)] bg-cream text-graphite hover:border-teal/40",
                 )}
               >
                 {tab.label}

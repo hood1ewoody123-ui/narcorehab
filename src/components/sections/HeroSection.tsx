@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import HeroBackgroundVideo from "@/components/sections/HeroBackgroundVideo";
+import { useFloatingUi } from "@/components/widgets/floating-ui/FloatingUiContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -21,6 +22,7 @@ const TEAL = "#1D6666";
 const WHITE = "#F7F7F5";
 
 export function HeroSection() {
+  const { markHeroIntroReady } = useFloatingUi();
   const reducedMotion = useReducedMotion();
   const introEnabled = reducedMotion !== true;
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -56,6 +58,12 @@ export function HeroSection() {
     setPhase("revealed");
     setLogoPlay(false);
   }, []);
+
+  useEffect(() => {
+    if (activePhase === "revealed") {
+      markHeroIntroReady();
+    }
+  }, [activePhase, markHeroIntroReady]);
 
   const contentVisible =
     activePhase === "transition" || activePhase === "revealed";

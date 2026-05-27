@@ -87,8 +87,8 @@ export default function Family() {
                   className={cn(
                     "rounded-sm border px-4 py-1.5 font-body text-sm transition-colors duration-200",
                     isActive
-                      ? "border-graphite bg-graphite text-cream"
-                      : "border-[var(--line)] bg-cream text-graphite hover:border-gray",
+                      ? "border-teal bg-teal text-cream"
+                      : "border-[var(--line)] bg-cream text-graphite hover:border-teal/40",
                   )}
                 >
                   {tab.label}
@@ -104,7 +104,7 @@ export default function Family() {
             <p className="mt-3 font-body text-base text-gray">{activeContent.description}</p>
             <Link
               href="#contact"
-              className="mt-5 inline-flex rounded-xl bg-graphite px-5 py-3 font-body text-sm text-cream transition-colors duration-200 hover:bg-black"
+              className="mt-5 inline-flex rounded-xl bg-teal px-5 py-3 font-body text-sm text-cream transition-colors duration-200 hover:bg-teal/90"
             >
               {activeContent.cta}
             </Link>

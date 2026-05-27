@@ -1,70 +1,65 @@
-"use client";
-
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
-
-type Filter = "all" | "expertise" | "family";
-
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: "all", label: "Все" },
-  { id: "expertise", label: "Экспертиза" },
-  { id: "family", label: "Семья" },
-];
-
-const EVENTS = [
-  { title: "Круглый стол", tag: "expertise" as const },
-  { title: "Лагерь", tag: "family" as const },
-  { title: "Открытая лекция", tag: "expertise" as const },
-];
+import {
+  CENTER_EVENTS,
+  EVENTS_ALL_HREF,
+  EVENTS_ALL_LABEL,
+  EVENTS_TITLE,
+} from "./events/constants";
 
 export default function EventsExpertise() {
-  const [filter, setFilter] = useState<Filter>("all");
-
-  const cards = useMemo(() => {
-    if (filter === "all") return EVENTS;
-    return EVENTS.filter((event) => event.tag === filter);
-  }, [filter]);
-
   return (
-    <section id="events" className="bg-cream py-20 md:py-24" aria-labelledby="events-title">
+    <section id="events" className="bg-cream py-20 md:py-24 lg:py-28" aria-labelledby="events-title">
       <div className="mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14">
-        <h2 id="events-title" className="font-display text-display-sm text-graphite md:text-[clamp(30px,3vw,40px)]">
-          События и экспертиза
+        <h2
+          id="events-title"
+          className="font-display text-display-sm text-graphite md:text-[clamp(30px,3.2vw,42px)] md:leading-[1.12]"
+        >
+          {EVENTS_TITLE}
         </h2>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {FILTERS.map((item) => {
-            const active = item.id === filter;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setFilter(item.id)}
-                className={cn(
-                  "rounded-full border border-dashed px-4 py-2 font-body text-sm transition-colors",
-                  active ? "border-graphite bg-graphite text-cream" : "border-[var(--line)] text-graphite hover:border-gray",
-                )}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {CENTER_EVENTS.map((event) => (
+            <article
+              key={event.id}
+              className="flex flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-cream shadow-[var(--shadow-sm)] md:rounded-3xl"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-silver/20">
+                <Image
+                  src={event.imageSrc}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
 
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {cards.map((card) => (
-            <article key={card.title} className="overflow-hidden rounded-2xl border border-[var(--line)] bg-cream">
-              <div className="aspect-[16/10] bg-silver/25" />
-              <div className="p-4">
-                <h3 className="font-body text-lg text-graphite">{card.title}</h3>
-                <Link href="#" className="mt-2 inline-flex font-body text-sm text-graphite hover:text-teal">
-                  Читать →
+              <div className="flex flex-1 flex-col p-5 md:p-6">
+                <h3 className="font-body text-base font-medium leading-snug text-graphite md:text-lg">
+                  {event.title}
+                </h3>
+                <p className="mt-3 line-clamp-3 font-body text-sm leading-relaxed text-gray">
+                  {event.excerpt}
+                </p>
+                <Link
+                  href={event.href}
+                  className="mt-4 inline-flex font-body text-sm text-teal transition-colors hover:text-graphite"
+                >
+                  Читать далее ({event.readMinutes} мин.)
                 </Link>
               </div>
             </article>
           ))}
         </div>
+
+        <p className="mt-10 text-center">
+          <Link
+            href={EVENTS_ALL_HREF}
+            className="font-body text-base text-teal underline decoration-teal/50 underline-offset-4 transition-colors hover:text-graphite hover:decoration-graphite/40 md:text-lg"
+          >
+            {EVENTS_ALL_LABEL}
+          </Link>
+        </p>
       </div>
     </section>
   );

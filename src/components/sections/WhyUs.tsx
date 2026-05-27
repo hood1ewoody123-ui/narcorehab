@@ -48,7 +48,7 @@ export default function WhyUs() {
           {WHY_US_TITLE}
         </h2>
 
-        <div className="mt-10 overflow-hidden rounded-2xl bg-black/5 md:mt-12 md:rounded-3xl">
+        <div className="mt-10 overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--teal-20)] md:mt-12 md:rounded-3xl">
           <video
             ref={videoRef}
             className="aspect-video w-full object-cover"

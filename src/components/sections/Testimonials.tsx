@@ -274,7 +274,7 @@ export default function Testimonials() {
                   <span className="h-5 w-5 rounded-full bg-silver/50" aria-hidden />
                   <span className="font-body text-xs text-graphite">{source.name}</span>
                   {source.rating ? (
-                    <span className="rounded-full bg-graphite px-1.5 py-0.5 font-body text-[11px] text-cream">
+                    <span className="rounded-full bg-teal px-1.5 py-0.5 font-body text-[11px] text-cream">
                       {source.rating}
                     </span>
                   ) : null}
@@ -293,7 +293,7 @@ export default function Testimonials() {
                 </div>
                 <button
                   type="button"
-                  className="rounded-xl border border-[var(--line)] bg-cream/70 px-4 py-2 font-body text-sm text-graphite transition-colors duration-200 hover:border-graphite hover:bg-graphite hover:text-cream"
+                  className="rounded-xl border border-[var(--line)] bg-cream/70 px-4 py-2 font-body text-sm text-graphite transition-colors duration-200 hover:border-teal hover:bg-teal hover:text-cream"
                 >
                   Оценить
                 </button>

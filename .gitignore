@@ -27,6 +27,10 @@
 # исходники hero-видео (в репо только public/video/hero)
 Scene_smoothly_rotates_around_axis_*.mov
 
+# исходники дизайна в корне (в репо — logo-paths, public/)
+/Asset*.svg
+/лого*.svg
+
 # debug
 npm-debug.log*
 yarn-debug.log*

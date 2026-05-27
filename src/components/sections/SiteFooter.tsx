@@ -1,5 +1,6 @@
 import { LogoAnimated } from "@/components/ui/LogoAnimated";
 import { MagnifyingGlass, Phone, WarningCircle } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import Link from "next/link";
 import {
   FOOTER_BOTTOM_LINKS,
@@ -7,6 +8,7 @@ import {
   FOOTER_COPYRIGHT,
   FOOTER_DISCLAIMER,
   FOOTER_LEGAL,
+  FOOTER_LICENSES,
   FOOTER_MEDICAL_NOTE,
   FOOTER_NAV_COLUMNS,
   FOOTER_SOCIALS,
@@ -14,8 +16,8 @@ import {
 
 export default function SiteFooter() {
   return (
-    <footer className="relative bg-cream pb-8 pt-6 md:pb-10 md:pt-8">
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14 lg:pr-[min(22vw,220px)]">
+    <footer className="relative bg-transparent pb-8 pt-6 md:pb-10 md:pt-8">
+      <div className="mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14">
         <div className="flex items-start gap-2 rounded-lg border border-[var(--line)] bg-[var(--teal-20)] px-4 py-3">
           <WarningCircle size={18} weight="duotone" className="mt-0.5 shrink-0 text-teal" aria-hidden />
           <p className="font-body text-xs leading-relaxed text-graphite md:text-sm">{FOOTER_DISCLAIMER}</p>
@@ -87,12 +89,9 @@ export default function SiteFooter() {
                 </a>
               ))}
             </div>
-            <div className="mt-3 flex flex-wrap gap-4 font-body text-sm">
+            <div className="mt-3 font-body text-sm">
               <Link href={FOOTER_CONTACT.telegram.href} className="text-teal hover:text-graphite">
                 {FOOTER_CONTACT.telegram.label}
-              </Link>
-              <Link href={FOOTER_CONTACT.callback.href} className="text-teal hover:text-graphite">
-                {FOOTER_CONTACT.callback.label}
               </Link>
             </div>
             <ul className="mt-5 space-y-4">
@@ -124,8 +123,20 @@ export default function SiteFooter() {
             <div className="mt-6">
               <p className="font-body text-sm font-medium text-graphite">Лицензия</p>
               <div className="mt-3 flex gap-3">
-                <div className="h-16 w-12 rounded border border-dashed border-[var(--line)] bg-silver/10" />
-                <div className="h-16 w-12 rounded border border-dashed border-[var(--line)] bg-silver/10" />
+                {FOOTER_LICENSES.map((license) => (
+                  <div
+                    key={license.src}
+                    className="relative h-20 w-14 overflow-hidden rounded border border-[var(--line)] bg-silver/10"
+                  >
+                    <Image
+                      src={license.src}
+                      alt={license.alt}
+                      fill
+                      sizes="56px"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                ))}
               </div>
               <p className="mt-2 font-body text-xs text-gray">{FOOTER_LEGAL.license}</p>
             </div>

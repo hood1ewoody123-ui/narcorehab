@@ -6,10 +6,10 @@ export default function ContactRow() {
   return (
     <section
       id="contact-row"
-      className="bg-cream pb-8 md:pb-10"
+      className="bg-transparent pb-8 md:pb-10"
       aria-labelledby="contact-row-title"
     >
-      <div className="mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14 lg:pr-[min(22vw,220px)]">
+      <div className="mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14">
         <div className="rounded-2xl border border-[var(--line)] bg-cream px-5 py-5 shadow-[var(--shadow-sm)] md:rounded-3xl md:px-7 md:py-6">
           <p
             id="contact-row-title"
@@ -34,9 +34,6 @@ export default function ContactRow() {
               Написать в Telegram
             </Link>
           </div>
-          <p className="mt-2 font-body text-sm text-gray">
-            Без «звоните срочно» — спокойный доступ к контакту
-          </p>
         </div>
       </div>
     </section>

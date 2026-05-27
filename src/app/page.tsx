@@ -1,4 +1,5 @@
 import LandingCanvas from "@/components/layout/LandingCanvas";
+import StickySiteHeader from "@/components/layout/StickySiteHeader";
 import LandingCanvasRest from "@/components/layout/LandingCanvasRest";
 import ConversationStart from "@/components/sections/ConversationStart";
 import Hero from "@/components/sections/Hero";
@@ -19,11 +20,14 @@ import TopicArticles from "@/components/sections/TopicArticles";
 import EventsExpertise from "@/components/sections/EventsExpertise";
 import LicensesSection from "@/components/sections/LicensesSection";
 import PartnersCommunity from "@/components/sections/PartnersCommunity";
+import HomeShell from "@/components/layout/HomeShell";
 import SiteBottom from "@/components/layout/SiteBottom";
 
 export default function Home() {
   return (
     <main>
+      <HomeShell>
+      <StickySiteHeader />
       <Hero />
       <LandingCanvas>
         <Pains />
@@ -48,6 +52,7 @@ export default function Home() {
         <PartnersCommunity />
       </LandingCanvasRest>
       <SiteBottom />
+      </HomeShell>
     </main>
   );
 }

@@ -111,7 +111,6 @@ export const FOOTER_CONTACT = {
     { display: SITE_PHONE_MOSCOW_DISPLAY, href: `tel:${SITE_PHONE_MOSCOW}` },
   ],
   telegram: { label: "Telegram", href: CONTACT_FORM_TELEGRAM_HREF },
-  callback: { label: "Позвоните мне", href: "#contact" },
   locations: [
     {
       title: "Медицинский центр",
@@ -150,3 +149,8 @@ export const FOOTER_BOTTOM_LINKS = [
 
 export const FOOTER_COPYRIGHT =
   "© 2018 — 2026 Все права защищены. ООО «ЦМПП Здравница»";
+
+export const FOOTER_LICENSES = [
+  { src: "/images/licenses/1.webp", alt: "Лицензия на медицинскую деятельность 1" },
+  { src: "/images/licenses/2.webp", alt: "Лицензия на медицинскую деятельность 2" },
+] as const;

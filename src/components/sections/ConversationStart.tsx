@@ -74,7 +74,7 @@ export function ConversationStart() {
 
       {/* z-20 — поверх cream, под контентом программ (z-30) */}
       <div
-        className="pointer-events-none absolute inset-0 left-1/2 z-[20] flex w-screen -translate-x-1/2 items-center justify-center"
+        className="pointer-events-none absolute inset-0 left-1/2 z-[20] flex w-screen -translate-x-1/2 items-end justify-start overflow-hidden md:items-center md:justify-center md:overflow-visible"
         aria-hidden
         style={{ opacity: bgOpacity }}
       >
@@ -83,7 +83,7 @@ export function ConversationStart() {
           alt=""
           width={CONVERSATION_IMAGE_WIDTH}
           height={CONVERSATION_IMAGE_HEIGHT}
-          className="h-auto w-full max-w-none object-contain object-center"
+          className="h-auto w-[175%] max-w-none object-cover object-[18%_center] md:w-full md:object-contain md:object-center"
           style={{ filter: bgBlur > 0 ? `blur(${bgBlur}px)` : undefined }}
           sizes="100vw"
           priority={false}

@@ -35,11 +35,3 @@ export const PAINS_COLUMNS = [
     href: "#family",
   },
 ] as const;
-
-/** Scroll-дистанция анимации подъёма Subtract */
-export const PAINS_ANIMATION_SCROLL_VH = 70;
-
-export const PAINS_CURTAIN_RISE_END = 1;
-/** Fade контента внутри той же панели — чуть позже старта подъёма */
-export const PAINS_CONTENT_FADE_START = 0.32;
-export const PAINS_CONTENT_FADE_END = 0.62;

@@ -9,7 +9,7 @@ type PainsContentProps = {
 
 export function PainsContent({ linesScale }: PainsContentProps) {
   return (
-    <div className="mx-auto flex w-full max-w-[1280px] flex-col px-6 pb-16 pt-4 md:px-10 md:pb-20 md:pt-6 lg:px-14">
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col px-6 pb-10 pt-4 md:px-10 md:pb-12 md:pt-6 lg:px-14">
       <header className="max-w-3xl">
         <h2 className="font-display text-display-md text-[#17191A]">
           {PAINS_TITLE}

@@ -1,13 +1,16 @@
 "use client";
 
+import {
+  CREAM,
+  HERO_CURTAIN_HEIGHT,
+  SUBTRACT_CURTAIN_PATH,
+  SUBTRACT_CURTAIN_VIEW_HEIGHT,
+  SUBTRACT_CURTAIN_WIDTH,
+} from "@/lib/subtract-curtain";
 import { motion } from "framer-motion";
 import {
   EASE_OUT,
-  HERO_CURTAIN_HEIGHT,
-  HERO_CURTAIN_VIEW_HEIGHT,
   INTRO_CURTAIN_DURATION,
-  SUBTRACT_CURTAIN_PATH,
-  SUBTRACT_CURTAIN_WIDTH,
 } from "./constants";
 
 type IntroPhase = "splash" | "transition" | "revealed";
@@ -16,8 +19,22 @@ type HeroCurtainProps = {
   phase: IntroPhase;
 };
 
+/** SVG растягивается с контейнером при спуске → subtract виден в финальной позиции */
+function CurtainShape() {
+  return (
+    <svg
+      className="block h-full w-full"
+      viewBox={`0 0 ${SUBTRACT_CURTAIN_WIDTH} ${SUBTRACT_CURTAIN_VIEW_HEIGHT}`}
+      preserveAspectRatio="none"
+      aria-hidden
+    >
+      <path d={SUBTRACT_CURTAIN_PATH} fill={CREAM} />
+    </svg>
+  );
+}
+
 export function HeroCurtain({ phase }: HeroCurtainProps) {
-  const useShape = phase !== "splash";
+  const showShape = phase !== "splash";
 
   return (
     <motion.div
@@ -33,17 +50,10 @@ export function HeroCurtain({ phase }: HeroCurtainProps) {
       }}
       aria-hidden
     >
-      {useShape ? (
-        <svg
-          className="block h-full w-full"
-          viewBox={`0 0 ${SUBTRACT_CURTAIN_WIDTH} ${HERO_CURTAIN_VIEW_HEIGHT}`}
-          preserveAspectRatio="none"
-          aria-hidden
-        >
-          <path d={SUBTRACT_CURTAIN_PATH} fill="#F7F7F5" />
-        </svg>
+      {showShape ? (
+        <CurtainShape />
       ) : (
-        <div className="h-full w-full bg-cream" />
+        <div className="h-full w-full bg-cream" aria-hidden />
       )}
     </motion.div>
   );

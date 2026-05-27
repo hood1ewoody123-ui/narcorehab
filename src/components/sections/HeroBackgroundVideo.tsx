@@ -45,8 +45,8 @@ function tryPlay(video: HTMLVideoElement | null) {
 function VideoSources({ clip }: { clip: (typeof CLIPS)[number] }) {
   return (
     <>
-      <source src={clip.webm} type="video/webm" />
       <source src={clip.mp4} type="video/mp4" />
+      <source src={clip.webm} type="video/webm" />
     </>
   );
 }
@@ -60,68 +60,9 @@ function HeroVideoGradient() {
   );
 }
 
-/** Один ролик + loop — надёжнее на iOS/Android и меньше трафика */
-function HeroBackgroundVideoMobile({ className }: HeroBackgroundVideoProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const root = containerRef.current;
-    if (!video) return;
-
-    prepareVideo(video);
-    tryPlay(video);
-
-    const onReady = () => tryPlay(video);
-    video.addEventListener("loadeddata", onReady);
-    video.addEventListener("canplay", onReady);
-
-    const io =
-      root &&
-      new IntersectionObserver(
-        ([entry]) => {
-          if (entry?.isIntersecting) tryPlay(video);
-          else video.pause();
-        },
-        { threshold: 0.15 },
-      );
-
-    if (io && root) io.observe(root);
-
-    const onFirstTouch = () => tryPlay(video);
-    document.addEventListener("touchstart", onFirstTouch, { once: true, passive: true });
-
-    return () => {
-      video.removeEventListener("loadeddata", onReady);
-      video.removeEventListener("canplay", onReady);
-      io?.disconnect();
-      document.removeEventListener("touchstart", onFirstTouch);
-    };
-  }, []);
-
-  return (
-    <div ref={containerRef} className={cn("absolute inset-0 overflow-hidden bg-black", className)}>
-      <video
-        ref={videoRef}
-        className="h-full w-full object-cover"
-        autoPlay
-        muted
-        playsInline
-        loop
-        preload="auto"
-        poster={CLIPS[0].poster}
-      >
-        <VideoSources clip={CLIPS[0]} />
-      </video>
-      <HeroVideoGradient />
-    </div>
-  );
-}
-
 export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null]);
   const transitioningRef = useRef(false);
   const rafRef = useRef(0);
 
@@ -130,27 +71,15 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
   const [topOpacity, setTopOpacity] = useState(1);
   const [bottomOpacity, setBottomOpacity] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   const bottomIndex = topIndex === 0 ? 1 : 0;
 
   useEffect(() => {
-    const mqMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mqMobile = window.matchMedia("(max-width: 767px)");
-
-    const update = () => {
-      setReducedMotion(mqMotion.matches);
-      setIsMobile(mqMobile.matches);
-    };
-
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(mq.matches);
     update();
-    mqMotion.addEventListener("change", update);
-    mqMobile.addEventListener("change", update);
-
-    return () => {
-      mqMotion.removeEventListener("change", update);
-      mqMobile.removeEventListener("change", update);
-    };
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
 
   const completeTransition = useCallback((outgoingIndex: number) => {
@@ -168,7 +97,7 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
   }, []);
 
   const startTransition = useCallback(() => {
-    if (transitioningRef.current) return;
+    if (transitioningRef.current || reducedMotion) return;
     transitioningRef.current = true;
 
     const outgoingIndex = topIndex;
@@ -206,7 +135,7 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [topIndex, completeTransition]);
+  }, [topIndex, completeTransition, reducedMotion]);
 
   const handleTimeUpdate = useCallback(() => {
     if (transitioningRef.current || reducedMotion) return;
@@ -219,8 +148,12 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
     }
   }, [topIndex, startTransition, reducedMotion]);
 
+  const bootPlayback = useCallback(() => {
+    tryPlay(videoRefs.current[topIndex]);
+  }, [topIndex]);
+
   useEffect(() => {
-    if (reducedMotion || isMobile) return;
+    if (reducedMotion) return;
 
     const top = videoRefs.current[topIndex];
     if (!top) return;
@@ -230,7 +163,7 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
     top.addEventListener("timeupdate", handleTimeUpdate);
     top.addEventListener("ended", startTransition);
 
-    const onReady = () => tryPlay(top);
+    const onReady = () => bootPlayback();
     if (top.readyState >= 2) onReady();
     else {
       top.addEventListener("loadeddata", onReady, { once: true });
@@ -242,32 +175,33 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
       root &&
       new IntersectionObserver(
         ([entry]) => {
-          if (entry?.isIntersecting) tryPlay(top);
+          if (entry?.isIntersecting) bootPlayback();
+          else top.pause();
         },
         { threshold: 0.1 },
       );
     if (io && root) io.observe(root);
 
+    const onFirstTouch = () => bootPlayback();
+    document.addEventListener("touchstart", onFirstTouch, { once: true, passive: true });
+
     return () => {
       top.removeEventListener("timeupdate", handleTimeUpdate);
       top.removeEventListener("ended", startTransition);
       io?.disconnect();
+      document.removeEventListener("touchstart", onFirstTouch);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [topIndex, handleTimeUpdate, startTransition, reducedMotion, isMobile]);
+  }, [topIndex, handleTimeUpdate, startTransition, reducedMotion, bootPlayback]);
 
   useEffect(() => {
-    if (reducedMotion || isMobile) return;
+    if (reducedMotion) return;
     const bottom = videoRefs.current[bottomIndex];
     if (bottom && bottomOpacity === 0 && !transitioningRef.current) {
       bottom.pause();
       bottom.currentTime = 0;
     }
-  }, [topIndex, bottomIndex, bottomOpacity, reducedMotion, isMobile]);
-
-  if (isMobile && !reducedMotion) {
-    return <HeroBackgroundVideoMobile className={className} />;
-  }
+  }, [topIndex, bottomIndex, bottomOpacity, reducedMotion]);
 
   if (reducedMotion) {
     return (

@@ -71,12 +71,11 @@ export function DoctorCircle({ doctor, layout = "absolute" }: DoctorCircleProps)
 
       <p
         className={cn(
-          "pointer-events-none mt-3 text-center font-body text-xs leading-relaxed break-words text-gray",
-          isGrid ? "w-full px-0.5" : "w-max max-w-[240px]",
-          "opacity-0 transition-opacity duration-300 ease-out-expo",
-          "group-hover:opacity-100 group-focus-within:opacity-100",
+          "mt-3 text-center font-body text-xs leading-relaxed break-words text-gray",
+          isGrid ? "w-full px-0.5 opacity-100" : "pointer-events-none w-max max-w-[240px]",
+          !isGrid &&
+            "opacity-0 transition-opacity duration-300 ease-out-expo group-hover:opacity-100 group-focus-within:opacity-100",
         )}
-        aria-hidden
       >
         {doctor.title}
       </p>

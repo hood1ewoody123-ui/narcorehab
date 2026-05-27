@@ -34,7 +34,7 @@ export default function Doctors() {
           </h2>
 
           <div
-            className="flex shrink-0 gap-2 rounded-full border border-[var(--line)] bg-cream p-1"
+            className="inline-flex w-fit max-w-full shrink-0 gap-1 self-start rounded-full border border-[var(--line)] bg-cream p-1"
             role="tablist"
             aria-label="Категория специалистов"
           >
@@ -50,7 +50,7 @@ export default function Doctors() {
                   aria-controls="doctors-cluster"
                   id={`doctors-tab-${tab.id}`}
                   className={cn(
-                    "rounded-full px-4 py-2 font-body text-xs transition-colors duration-300 md:px-5 md:text-sm",
+                    "whitespace-nowrap rounded-full px-3.5 py-2 font-body text-xs transition-colors duration-300 md:px-5 md:text-sm",
                     isActive
                       ? "bg-teal text-cream"
                       : "text-gray hover:text-graphite",

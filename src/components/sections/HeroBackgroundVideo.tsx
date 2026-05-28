@@ -12,6 +12,7 @@ const CLIPS = [
   {
     mp4: "/video/hero/hero-2.mp4",
     webm: "/video/hero/hero-2.webm",
+    poster: "/video/hero/hero-2-poster.jpg",
   },
 ] as const;
 
@@ -45,8 +46,9 @@ function tryPlay(video: HTMLVideoElement | null) {
 function VideoSources({ clip }: { clip: (typeof CLIPS)[number] }) {
   return (
     <>
-      <source src={clip.mp4} type="video/mp4" />
+      {/* WebM первым — меньший вес; MP4 — fallback (Safari/iOS) */}
       <source src={clip.webm} type="video/webm" />
+      <source src={clip.mp4} type="video/mp4" />
     </>
   );
 }
@@ -255,8 +257,8 @@ export function HeroBackgroundVideo({ className }: HeroBackgroundVideoProps) {
               autoPlay={isTop}
               muted
               playsInline
-              preload={isTop ? "auto" : "none"}
-              poster={index === 0 ? CLIPS[0].poster : undefined}
+              preload={isTop ? "metadata" : "none"}
+              poster={"poster" in clip ? clip.poster : undefined}
             >
               <VideoSources clip={clip} />
             </video>

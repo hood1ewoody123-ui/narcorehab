@@ -36,6 +36,8 @@ body {
   background: var(--white);
   color: var(--graphite);
   font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: visible;
@@ -47,7 +49,47 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+@layer components {
+  .text-section-body {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--graphite);
+  }
+
+  @media (min-width: 768px) {
+    .text-section-body {
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
+  }
+
+  .text-section-muted {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--gray);
+  }
+
+  @media (min-width: 768px) {
+    .text-section-muted {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+  }
+
+  .text-section-label {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
 }
 
 :focus:not(:focus-visible) {

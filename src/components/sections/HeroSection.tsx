@@ -106,7 +106,7 @@ export function HeroSection() {
         transition={{ duration: 0.65, delay: 0.4, ease: EASE_OUT }}
       >
         <HeroHeadline />
-        <p className="mt-6 max-w-3xl font-body text-sm leading-relaxed text-white/90 md:text-base md:whitespace-nowrap">
+        <p className="mt-6 max-w-2xl font-body text-body-md leading-relaxed text-white/92 md:text-body-lg">
           {HERO_SUBHEADLINE}
         </p>
         <Button variant="ghost" size="md" className="mt-8">

@@ -15,8 +15,10 @@ export type Doctor = {
   slot: DoctorSlot;
 };
 
-export const DOCTORS_TITLE =
-  "С вами будут рядом специалисты разных профилей";
+export const DOCTORS_TITLE = "Врачи и специалисты, которые ведут вас лично";
+
+export const DOCTORS_SUBTITLE =
+  "Психиатры, наркологи и психологи — в одной команде. Имя и специализация всегда на виду.";
 
 export const DOCTORS_TABS: { id: DoctorGroup; label: string }[] = [
   { id: "clinic", label: "Врачи клиники" },

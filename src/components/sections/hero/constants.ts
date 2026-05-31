@@ -17,11 +17,13 @@ export const INTRO_LOGO_PAUSE_MS = 450;
 export const INTRO_CURTAIN_DURATION = 1.15;
 export const INTRO_LOGO_FLIGHT_DURATION = 1.05;
 
+export const HERO_EYEBROW = "Частная клиника · Москва";
+
 export const HEADLINE_POSITIONING =
-  "Клиника психиатрии, наркологии и восстановления личности";
+  "Психическое здоровье и восстановление — с вниманием к человеку, а не к диагнозу";
 
 export const HERO_SUBHEADLINE =
-  "Комплексная медицинская и психологическая помощь при зависимостях, тревоге и кризисных состояниях.";
+  "Деликатная помощь при зависимостях, тревоге и кризисе. Анонимно. С понятным маршрутом с первого разговора.";
 
 export const SITE_ADDRESS = "Москва, Кутузовский пр-т, 36с1";
 

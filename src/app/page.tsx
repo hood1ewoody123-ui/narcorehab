@@ -3,6 +3,7 @@ import StickySiteHeader from "@/components/layout/StickySiteHeader";
 import LandingCanvasRest from "@/components/layout/LandingCanvasRest";
 import ConversationStart from "@/components/sections/ConversationStart";
 import Hero from "@/components/sections/Hero";
+import Positioning from "@/components/sections/Positioning";
 import Pains from "@/components/sections/Pains";
 import Programs from "@/components/sections/Programs";
 import Safety from "@/components/sections/Safety";
@@ -30,6 +31,7 @@ export default function Home() {
       <StickySiteHeader />
       <Hero />
       <LandingCanvas>
+        <Positioning />
         <Pains />
         <Safety />
         <ConversationStart />

@@ -1,5 +1,6 @@
 export { default as ConversationStart } from "./ConversationStart";
 export { default as Hero } from "./Hero";
+export { default as Positioning } from "./Positioning";
 export { default as Pains } from "./Pains";
 export { default as Safety } from "./Safety";
 export { default as Programs } from "./Programs";
